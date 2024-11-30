@@ -4,4 +4,63 @@ version = "0.1.0"
 description = "DOMjudge deploy with Ansible"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["ansible>=11.0.0"]
+
+[dependency-groups]
+dev = ["ansible-lint>=24.10.0", "pyright[nodejs]==1.1.386", "ruff>=0.8.1"]
+
+
+[tool.uv]
+environments = ["platform_system != 'Windows'"]
+
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  # pydocstyle: Do not require any docstring.
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "D104",
+  "D105",
+  "D106",
+  "D107",
+  "D212",
+  "D203",
+  # pydocstyle: Allow blank line after docstring.
+  "D202",
+  # Ignore rules for linter.
+  "COM812",
+  "ISC001",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"] # flake8-bandit: Allow using assert
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-import-conventions]
+banned-from = ["typing"]
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
+
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+reportUnnecessaryTypeIgnoreComment = true
