@@ -1,0 +1,7 @@
+[project]
+name = "domjudge-deploy"
+version = "0.1.0"
+description = "DOMjudge deploy with Ansible"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
