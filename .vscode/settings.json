@@ -1,0 +1,7 @@
+{
+  "cSpell.words": ["domserver"],
+  "files.watcherExclude": {
+    "**/.venv/**": true,
+    "roles/external/**": true
+  }
+}
