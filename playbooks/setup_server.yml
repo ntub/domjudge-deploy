@@ -20,6 +20,20 @@
             cmd: grep -q 'GRUB_CMDLINE_LINUX_DEFAULT="quiet cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=0"' /etc/default/grub
           changed_when: false
 
+    - name: Setup ufw.
+      block:
+        - name: Allow ssh.
+          community.general.ufw:
+            rule: allow
+            name: OpenSSH
+          become: true
+
+        - name: Enable ufw.
+          community.general.ufw:
+            state: enabled
+            default: deny
+          become: true
+
     - name: Install Docker.
       ansible.builtin.import_tasks: tasks/install_and_setup_docker.yml
 
