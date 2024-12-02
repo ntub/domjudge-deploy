@@ -1,0 +1,28 @@
+- name: Setup server.
+  hosts:
+    - server
+
+  tasks:
+    - name: Setup grub to support cgroup.
+      block:
+        - name: Replace GRUB_CMDLINE_LINUX_DEFAULT in grub configuration.
+          ansible.builtin.replace:
+            path: /etc/default/grub
+            regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=""$'
+            replace: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=0"'
+            backup: true
+          become: true
+          notify:
+            - Update grub and reboot.
+
+        - name: Check if GRUB_CMDLINE_LINUX_DEFAULT is updated.
+          ansible.builtin.command:
+            cmd: grep -q 'GRUB_CMDLINE_LINUX_DEFAULT="quiet cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=0"' /etc/default/grub
+          changed_when: false
+
+    - name: Install Docker.
+      ansible.builtin.import_tasks: tasks/install_and_setup_docker.yml
+
+  handlers:
+    - name: Update grub and reboot.
+      ansible.builtin.include_tasks: tasks/update_grub_and_reboot.yml

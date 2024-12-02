@@ -1,0 +1,15 @@
+- name: Update grub.
+  ansible.builtin.command:
+    cmd: update-grub
+  become: true
+  changed_when: false
+
+- name: Reboot server
+  ansible.builtin.reboot:
+    msg: "Rebooting server to apply grub changes."
+  become: true
+
+- name: Check if cgroup is enabled.
+  ansible.builtin.command:
+    cmd: grep -q 'quiet cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=0' /proc/cmdline
+  changed_when: false
