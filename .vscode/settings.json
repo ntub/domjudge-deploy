@@ -2,6 +2,10 @@
   "cSpell.words": ["domserver"],
   "files.watcherExclude": {
     "**/.venv/**": true,
-    "roles/external/**": true
-  }
+    "**/roles/external/**": true
+  },
+  "files.associations": {
+    "**/playbooks/tasks/*.yml": "ansible"
+  },
+  "ansible.python.interpreterPath": "${workspaceFolder}/.venv/bin/python"
 }
