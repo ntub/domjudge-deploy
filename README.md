@@ -6,14 +6,18 @@
 
     ```bash
     # If your key is ~/.ssh/id_rsa.pub.
-    ansible-playbook playbooks/setup_no_password_login.yml -l 'server' --ask-pass --ask-become-pass
+    ansible-playbook playbooks/setup_no_password_login.yml --ask-pass --ask-become-pass -l 'server'
     
     # If you want to custom public key.
-    ansible-playbook playbooks/setup_no_password_login.yml -l 'server' --ask-pass --ask-become-pass -e ssh_public_key_file=~/ssh/key.pub
+    ansible-playbook playbooks/setup_no_password_login.yml --ask-pass --ask-become-pass -e ssh_public_key_file=~/ssh/key.pub -l 'server'
     ```
 
-2. Install and setup Docker.
+2. Setup server.
 
     ```bash
-    ansible-playbook playbooks/install_docker.yml -l 'server'
+    ansible-playbook playbooks/setup_server.yml -l 'server001'
     ```
+
+## Todo
+
+- [] Deploy domserver.
